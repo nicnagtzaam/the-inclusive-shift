@@ -1,0 +1,17 @@
+// Section 25 — approved media types only, public read for published assets,
+// no client-side write path (uploads go through an authenticated API route
+// that validates file signature/size before generating a signed upload URL
+// or writing via the Admin SDK — see lib/validation.ts).
+
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /public/{allPaths=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

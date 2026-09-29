@@ -1,0 +1,46 @@
+// Section 24 — Firestore must not expose admin functionality to the public
+// browser. All writes happen server-side (Cloud Run, Admin SDK, which
+// bypasses these rules entirely via its service account). These rules exist
+// as defence-in-depth in case any client-side Firestore SDK usage is ever
+// introduced by mistake — today, the app should have NO client-side
+// Firestore reads/writes at all; everything goes through the Next.js API
+// routes / server components using firebase-admin.
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /episodes/{episodeId} {
+      allow read: if resource.data.status == 'published';
+      allow write: if false; // server-only, via Admin SDK
+    }
+
+    match /guests/{guestId} {
+      allow read: if true; // guest profiles are public content
+      allow write: if false;
+    }
+
+    match /resources/{resourceId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /topics/{topicId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /settings/{docId} {
+      allow read: if true; // public content fields (e.g. About page)
+      allow write: if false;
+    }
+
+    // Never client-readable or writable.
+    match /auditLog/{entryId} {
+      allow read, write: if false;
+    }
+    match /rateLimits/{entryId} {
+      allow read, write: if false;
+    }
+  }
+}

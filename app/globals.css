@@ -1,0 +1,12 @@
+/* Brand tokens from the approved Figma file — Section 3/34 of the design brief.
+   Do not add colours outside this palette (design brief Section 4). */
+:root {
+  --color-indigo: #11143d;
+  --color-white: #ffffff;
+  --color-yellow: #fadf4b;
+  --font-display: "Montserrat", sans-serif; /* Monument Extended stand-in — see design thread */
+  --font-body: "Inter", sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font-body); color: var(--color-indigo); }
