@@ -25,7 +25,7 @@ export interface AdminIdentity {
 // Add editors here (or move this to a Firestore "admins" collection once
 // there's more than a couple of people — a flat list is fine for one owner).
 const ROLE_MAP: Record<string, Role> = {
-  // "owner@theinclusiveshift.com": "ADMIN",
+  // "nic.nagtzaam@icloud.com": "ADMIN",
 };
 
 const DEFAULT_ROLE_FOR_UNLISTED_IAP_USER: Role | null = null; // fail closed
